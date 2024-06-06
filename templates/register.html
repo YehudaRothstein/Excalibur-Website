@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Register - Scouting System</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Global styles */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            background-color: #012265;
+            font-family: "Copperplate Gothic Bold", "Copperplate Gothic", "Copperplate", "Arial Black", sans-serif;
+            color: #d4af37;
+            overflow: hidden; /* Prevents scrolling */
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        /* Form container styles */
+        .register-container {
+            width: 100%;
+            max-width: 380px;
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Form styles */
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            margin-bottom: 15px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            color: #012265;
+            background-color: #f5f5f5;
+            font-family: "Copperplate Gothic Bold", "Copperplate Gothic", "Copperplate", "Arial Black", sans-serif;
+        }
+
+        button {
+            background-color: #d4af37;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            color: #012265;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: "Copperplate Gothic Bold", "Copperplate Gothic", "Copperplate", "Arial Black", sans-serif;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #b89130;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #012265;
+            font-family: "Copperplate Gothic Bold", "Copperplate Gothic", "Copperplate", "Arial Black", sans-serif;
+        }
+
+        .login-link a {
+            color: #d4af37;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h1>Register</h1>
+        <form method="POST">
+            <input type="text" name="full_name" placeholder="Full Name" required>
+            <input type="text" name="job_title" placeholder="Job Title" required>
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+            <button type="submit">Register</button>
+        </form>
+        <div class="login-link">
+            <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+        </div>
+    </div>
+</body>
+</html>

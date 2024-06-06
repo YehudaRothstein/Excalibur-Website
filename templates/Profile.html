@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link href="https://db.onlinewebfonts.com/c/a9ca19a608d18285fbd70cb40818bb79?family=Copperplate+W02+Bold" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #012265;
+            color: #d4af37;
+            font-family: "Copperplate W02 Bold", "Copperplate Gothic Bold", "Copperplate Gothic", "Copperplate", "Arial Black", sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header, nav, main, footer {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #012265;
+            color: #d4af37;
+            padding: 10px 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 15px;
+        }
+
+        nav ul li {
+            margin: 0;
+        }
+
+        nav ul li a {
+            color: #d4af37;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #d4af37;
+            color: #012265;
+        }
+
+        .profile-container {
+            background-color: #ffffff;
+            color: #012265;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .profile-pic-large {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .profile-info {
+            text-align: center;
+        }
+
+        .profile-info h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .profile-info p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background-color: #012265;
+            color: #d4af37;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            display: inline-block;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #011a4a;
+        }
+
+        .upload-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .upload-form input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-upload {
+            border: 1px solid #d4af37;
+            border-radius: 8px;
+            display: inline-block;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #012265;
+            color: #d4af37;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            transition: background-color 0.3s;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #011a4a;
+        }
+        
+         .profile-pic-large {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+
+        footer {
+            background-color: #012265;
+            color: #d4af37;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        footer small, footer p {
+            margin: 10px 0;
+        }
+
+        footer a {
+            color: #d4af37;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><strong>Excalibur FRC 6738</strong></li>
+            </ul>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                <li><a href="#settings">Settings</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="profile-container">
+        <img src="{{ url_for('static', filename='profiles/' ~ current_user.profile_picture) }}" alt="Profile Picture" class="profile-pic-large">
+        <div class="profile-info">
+            <h2>{{ full_name }}</h2>
+            <p>{{ job_title }}</p>
+            <form action="{{ url_for('upload_profile_picture') }}" method="POST" enctype="multipart/form-data" class="upload-form">
+                <label for="file-upload" class="custom-file-upload">
+                    Choose a Profile Picture
+                </label>
+                <input id="file-upload" type="file" name="profile_picture" required>
+                <button type="submit" class="btn">Upload Profile Picture</button>
+            </form>
+            <a href="#edit-profile" class="btn">Edit Profile</a>
+            <a href="#view-projects" class="btn">View Projects</a>
+        </div>
+    </main>
+    <footer>
+        <small><a href="#">Privacy Policy</a> • <a href="#">Terms of Service</a></small>
+        <p>&copy; 2024 Excalibur FRC 6738</p>
+    </footer>
+</body>
+</html>

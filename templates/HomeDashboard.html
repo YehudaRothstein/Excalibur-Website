@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://db.onlinewebfonts.com/c/a9ca19a608d18285fbd70cb40818bb79?family=Copperplate+W02+Bold" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #012265;
+            color: #d4af37;
+            font-family: "Copperplate W02 Bold", "Copperplate Gothic Bold", "Copperplate Gothic", "Copperplate", "Arial Black", sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        header,
+        nav,
+        main,
+        footer {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #012265;
+            color: #d4af37;
+            padding: 10px 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 15px;
+        }
+
+        button {
+            background-color: #d4af37;
+            color: #012265;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        nav ul li {
+            margin: 0;
+        }
+
+        nav ul li a {
+            color: #d4af37;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #d4af37;
+            color: #012265;
+        }
+
+        .hero {
+            background-color: #012265;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            margin: 20px 0;
+            font-size: 2.5rem;
+        }
+
+        .hero-content p {
+            margin: 10px 0;
+            font-size: 1.2rem;
+        }
+
+        .btn {
+            background-color: #d4af37;
+            color: #012265;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        .container {
+            background-color: #ffffff;
+            color: #012265;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+        }
+         .profile-pic-large {
+            width: 50px;
+            height: 50px;
+            border-radius: 40%;
+            object-fit: cover;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #d4af37;
+            color: #012265;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .card-content {
+            flex: 1;
+        }
+
+        .view-teams-btn {
+            background-color: #012265;
+            border: none;
+            color: #d4af37;
+            font-family: "Copperplate W02 Bold", "Copperplate Gothic Bold", "Copperplate Gothic", "Copperplate", "Arial Black", sans-serif;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1rem;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .view-teams-btn:hover {
+            background-color: #011a4a;
+        }
+
+        .profile-section {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .profile-dropdown {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background-color: #ffffff;
+            color: #012265;
+            border: 1px solid #d4af37;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: none;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .profile-dropdown a {
+            padding: 10px 20px;
+            color: #012265;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            text-align: left;
+            border-bottom: 1px solid #d4af37;
+        }
+
+        .profile-dropdown a:last-child {
+            border-bottom: none;
+        }
+
+        .profile-dropdown a:hover {
+            background-color: #d4af37;
+            color: #012265;
+        }
+
+        .profile-section:hover .profile-dropdown {
+            display: flex;
+        }
+
+        .subscribe-section {
+            background-color: #012265;
+            color: #d4af37;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .subscribe-section form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .subscribe-section form input,
+        .subscribe-section form button {
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+        }
+
+        .subscribe-section form button {
+            background-color: #d4af37;
+            color: #012265;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .subscribe-section form button:hover {
+            background-color: #b3992c;
+        }
+
+        footer {
+            background-color: #012265;
+            color: #d4af37;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        footer small,
+        footer p {
+            margin: 10px 0;
+        }
+
+        footer a {
+            color: #d4af37;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .profile-dropdown {
+                top: 50px;
+                right: -10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><strong>Excalibur FRC 6738</strong></li>
+            </ul>
+            <ul>
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#schedule">Schedule</a></li>
+                <li><a href="#contacts">Contacts</a></li>
+                <li><a href="#" role="button">Donate</a></li>
+            </ul>
+            <div class="profile-section">
+                     <img src="{{ url_for('static', filename='profiles/' ~ current_user.profile_picture) }}" alt="Profile Picture" class="profile-pic-large">                <div class="profile-dropdown">
+                    <a href="{{ url_for('profile') }}">View Profile</a>
+                    <a href="#settings">Settings</a>
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Excalibur!, {{ full_name }}</h1>
+            <p>Innovating the future with robotics and technology.</p>
+            <br>
+            <a href="#projects" class="btn">Learn More</a>
+        </div>
+    </section>
+    <main class="container">
+        <section id="dashboard">
+            <h2>Dashboard</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="https://excaliburfrc.github.io/resources/Logo.png" alt="Teams">
+                    <div class="card-content">
+                        <h3>Teams</h3>
+                        <p>View all team members and their roles.</p>
+                        <button class="view-teams-btn" onclick="viewTeams()">View Teams</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://via.placeholder.com/80" alt="Upcoming Matches">
+                    <div class="card-content">
+                        <h3>Sponsors</h3>
+                        <p>Check out our sponsors for the upcoming season!</p>
+                        <button class="view-teams-btn" onclick="viewMatches()">View Matches</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="static/teams.jpg" alt="Statistics">
+                    <div class="card-content">
+                        <h3>Statistics</h3>
+                        <p>View team performance statistics.</p>
+                        <button class="view-teams-btn" onclick="viewStats()">View Stats</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://via.placeholder.com/80" alt="Resources">
+                    <div class="card-content">
+                        <h3>Resources</h3>
+                        <p>Access training and resources.</p>
+                        <button class="view-teams-btn" onclick="viewResources()">View Resources</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="team">
+            <h2>Team Overview</h2>
+            <p>Our team consists of passionate individuals who are dedicated to innovation and excellence. Meet the members who make our success possible.</p>
+            <div class="card">
+                <img src="https://via.placeholder.com/80" alt="Team photo">
+                <div class="card-content">
+                    <h3>Our Team</h3>
+                    <p><a href="#" target="_blank">View Team</a></p>
+                </div>
+            </div>
+        </section>
+        <section id="projects">
+            <h2>Projects</h2>
+            <p>We are constantly working on exciting projects that push the boundaries of technology and innovation. Explore our current and past projects.</p>
+            <div class="card">
+                <img src="templates/teams.jpg" alt="Project photo">
+                <div class="card-content">
+                    <h3>Current Projects</h3>
+                    <p><a href="#" target="_blank">View Projects</a></p>
+                </div>
+            </div>
+        </section>
+        <section id="schedule">
+            <h2>Schedule</h2>
+            <p>Stay up-to-date with our latest events and activities. Check out our schedule to see what's coming up next.</p>
+            <div class="card">
+                <img src="https://via.placeholder.com/80" alt="Schedule photo">
+                <div class="card-content">
+                    <h3>Upcoming Events</h3>
+                    <p><a href="#" target="_blank">View Schedule</a></p>
+                </div>
+            </div>
+        </section>
+        <section id="contacts">
+            <h2>Contact Information</h2>
+            <p>We'd love to hear from you! Whether you have a question or just want to say hello, feel free to get in touch with us.</p>
+            <div class="card">
+                <img src="https://via.placeholder.com/80" alt="Contact photo">
+                <div class="card-content">
+                    <h3>Get in Touch</h3>
+                    <p><a href="#" target="_blank">View Contacts</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <section aria-label="Subscribe example" class="subscribe-section">
+        <div class="container">
+            <article>
+                <h2>Subscribe to our newsletter</h2>
+                <p>Stay updated with our latest news</p>
+                <form id="subscribeForm">
+                    <input type="text" id="firstname" name="firstname" placeholder="First Name" aria-label="First Name" required>
+                    <input type="email" id="email" name="email" placeholder="Email Address" aria-label="Email Address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </article>
+        </div>
+    </section>
+    <footer>
+        <small><a href="#">Privacy Policy</a> • <a href="#">Terms of Service</a></small>
+        <p>&copy; 2024 Excalibur FRC 6738</p>
+    </footer>
+    <script>
+        function viewTeams() {
+            alert('Viewing teams...');
+        }
+
+        function viewMatches() {
+            alert('Viewing matches...');
+        }
+
+        function viewStats() {
+            alert('Viewing stats...');
+        }
+
+        function viewResources() {
+            alert('Viewing resources...');
+        }
+    </script>
+</body>
+</html>

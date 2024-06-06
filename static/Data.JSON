@@ -1,0 +1,26 @@
+[
+    {
+        "scouter_name": "sf",
+        "qual_number": "34",
+        "team": "6738",
+        "alliance": "",
+        "auto_amp": "0",
+        "auto_speaker": "0",
+        "auto_collected_parts_from_middle": "0",
+        "left_robot_starting_zone": false,
+        "arrived_to_middle": false,
+        "teleop_amp": "0",
+        "teleop_speaker": "0",
+        "teleop_pins": "0",
+        "speaker_misses": "0",
+        "endgame_trap": "0",
+        "climb_timer_seconds": 0,
+        "climbed_with_another_robot": false,
+        "close_to_speaker": false,
+        "from_our_area": false,
+        "from_the_middle": false,
+        "climbed": true,
+        "comments": "",
+        "amp_misses": "0"
+    }
+]

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Excalibur FRC Dashboard</title>
+  <link rel="stylesheet" href="style.css">  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">  </head>
+<body>
+  <header class="header">
+    <div class="container">  <h1>Excalibur FRC</h1>
+      <nav class="nav">
+        <ul>
+          <li><a href="{{ url_for('home') }}">Dashboard</a></li>
+          <li><a href="{{ url_for('scout') }}">Scouting</a></li>
+          <li><a href="{{ url_for('report_bug') }}">Report Bugs</a></li>
+          <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="container">
+      <section class="hero">  <h2>Welcome, {{ current_user.username }}!</h2>
+      </section>
+
+      <section class="dashboard-grid">
+        <article class="dashboard-card">  <h2>Scouting</h2>
+          <p>Analyze real-time scouting data and strategies.</p>
+          <button onclick="window.location.href='{{ url_for('scout') }}'">Go To Scouting</button>
+        </article>
+
+        <article class="dashboard-card">
+          <h2>Match Results</h2>
+          <p>Check out recent match results and rankings.</p>
+          <button onclick="window.location.href='{{ url_for('scout') }}'">View Results</button>  </article>
+
+        <article class="dashboard-card">
+          <h2>Team Data</h2>
+          <p>Explore team performance data and statistics.</p>
+          <button onclick="window.location.href='{{ url_for('scout') }}'">View Teams</button>    </article>
+
+        <article class="dashboard-card">
+          <h2>Report Bugs</h2>
+          <p>Help improve the system by reporting any bugs.</p>
+          <button onclick="window.location.href='{{ url_for('report_bug') }}'">Report Now</button>
+        </article>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2024 Excalibur FRC Scouting System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <link rel="stylesheet" href="style.css">
+</body>
+</html>

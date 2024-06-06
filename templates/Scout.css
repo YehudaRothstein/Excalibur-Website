@@ -1,0 +1,114 @@
+        .button-set {
+        display: flex;
+        justify-content: space-between; /* Move buttons to left and right side */
+        align-items: center; /* Center vertically within the container */
+    }
+
+    .button-set button {
+        width: 30px; /* Adjust width as needed */
+        height: 30px; /* Adjust height as needed */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .button-set button.minus {
+        background-color: #d9534f; /* Red color for minus button */
+        color: white;
+    }
+
+    .button-set button.plus {
+        background-color: #5bc0de; /* Blue color for plus button */
+        color: white;
+    }
+
+    #counter1 {
+        width: 40px; /* Adjust width as needed */
+        text-align: center;
+        margin: 0 10px; /* Add margin for separation */
+    }
+
+    .submit-button-container {
+        text-align: center; /* Center the submit button */
+        margin-top: 20px; /* Adjust the margin as needed */
+    }
+
+    #submitButton {
+        width: 100%; /* Make the submit button full width */
+    }
+    .button-set {
+        display: flex;
+        justify-content: space-between; /* Move buttons to left and right side */
+    }
+
+    .button-set button {
+            order: 2; /* Reverse order of buttons */
+    }
+
+    .submit-button-container {
+        text-align: center; /* Center the submit button */
+        margin-top: 20px; /* Adjust the margin as needed */
+    }
+
+    #submitButton {
+        width: 100%; /* Make the submit button full width */
+    }
+
+    body {
+         background-color: #012265;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px;
+    }
+
+    h6, p, h2{
+        font-weight: normal;
+        color: #d3af37;
+        width: 100%;
+        margin-bottom: 10px;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    input, select, button {
+        background-color: #d3af37;
+        width: 100%;
+        margin-bottom: 10px;
+        text-align: center;
+        box-sizing: border-box; /* Ensure padding and border are included in the width */
+    }
+
+    select {
+            font-weight: normal;
+          background-color: #d3af37;
+        max-width: 100%; /* Remove calc for smaller screens */
+    }
+
+    button {
+          background-color: #d3af37;
+           margin-top: 10px;
+    }
+
+
+
+    /* Added styling for checkbox */
+    .checkbox-container {
+        display: flex;
+        align-items: center; /* Align items horizontally */
+    }
+
+    /* Media query for screens with a maximum width of 600px (adjust as needed) */
+    @media (max-width: 600px) {
+        .image-container {
+            flex-direction: row; /* Align images side by side on larger screens */
+        }
+
+        img {
+            width: 45%; /* Reset width for larger screens */
+            margin-bottom: 0; /* Reset margin for larger screens */
+        }
+    }
