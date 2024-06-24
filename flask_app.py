@@ -214,10 +214,6 @@ def scout():
         return redirect(url_for('scout'))
     return render_template("Scout.html")
 
-@app.route("/ReportBugs", methods=["POST", "GET"])
-@login_required
-def report_bug():
-    return render_template("Report.html")
 
 @app.route("/")
 @login_required
@@ -229,21 +225,28 @@ def test():
 def profile():
     return render_template('Profile.html', full_name=current_user.full_name, job_title=current_user.job_title)
 
+@app.route("/stats")
+@login_required
+def stats():
+    return render_template('Stats.html')
+
 @app.route("/scan-qr", methods=['POST'])
 @login_required
 def scan_qr():
     try:
         form_data = {
-            "qual_number": request.form.get('qual_number'),
-            "team": request.form.get('team'),
-            "alliance": request.form.get('alliance'),
-            "autonomous_amp": request.form.get('autonomous_amp'),
-            "autonomous_speaker": request.form.get('autonomous_speaker'),
-            "teleop_amp": request.form.get('teleop_amp'),
-            "teleop_speaker": request.form.get('teleop_speaker'),
-            "climb_choice": request.form.get('climb_choice'),
-            "manual_climb_time": request.form.get('manual_climb_time'),
-            "comments": request.form.get('comments')
+            "m_num": request.form.get('m_num'),
+            "tm": request.form.get('tm'),
+            "all": request.form.get('all'),
+            "a_amp": request.form.get('a_amp'),
+            "a_spk": request.form.get('a_spk'),
+            "l_zone": request.form.get('l_zone'),
+            "m_zone": request.form.get('m_zone'),
+            "t_amp": request.form.get('t_amp'),
+            "t_spk": request.form.get('t_spk'),
+            "c_choice": request.form.get('c_choice'),
+            "c_time": request.form.get('c_time'),
+            "cmnts": request.form.get('cmnts')
         }
 
         # Validate the data
@@ -261,7 +264,6 @@ def scan_qr():
         logging.error(f"An error occurred: {e}")
         flash(f"Failed to save QR code data. Error: {str(e)}", 'danger')
         return redirect(url_for('scan_qr_page'))
-
 @app.route("/scan-qr")
 @login_required
 def scan_qr_page():
