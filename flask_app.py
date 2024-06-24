@@ -1,311 +1,157 @@
-import os
-import logging
-import json
-import random
-import bcrypt
-from flask import Flask, render_template, request, redirect, flash, url_for, jsonify
-from flask_login import UserMixin, LoginManager, login_user, login_required, logout_user, current_user
-from werkzeug.utils import secure_filename
-
-app = Flask(__name__)
-app.config['SECRET_KEY'] = '1234'
-
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = 'login'
-
-USER_DATA_FILE = '/home/yehudarothstein/mysite/users.json'
-CONTACTS_DATA_FILE = '/home/yehudarothstein/mysite/contacts.json'
-DATA_FILE = '/home/yehudarothstein/mysite/static/Data.JSON'
-app.config['UPLOAD_FOLDER'] = '/home/yehudarothstein/mysite/static/profiles'
-
-logging.basicConfig(level=logging.DEBUG)
-
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'png', 'jpg', 'jpeg', 'gif'}
-
-def save_users(users):
-    with open(USER_DATA_FILE, 'w') as f:
-        json.dump(users, f, indent=4)
-
-def load_users():
-    if os.path.exists(USER_DATA_FILE):
-        with open(USER_DATA_FILE, 'r') as f:
-            try:
-                return json.load(f)
-            except json.JSONDecodeError:
-                return []
-    return []
-
-def save_data(data):
-    with open(DATA_FILE, 'w') as f:
-        json.dump(data, f, indent=4)
-
-def load_data():
-    if os.path.exists(DATA_FILE):
-        with open(DATA_FILE, 'r') as f:
-            try:
-                return json.load(f)
-            except json.JSONDecodeError:
-                return []
-    return []
-
-def load_contacts():
-    if os.path.exists(CONTACTS_DATA_FILE):
-        with open(CONTACTS_DATA_FILE, 'r') as f:
-            try:
-                return json.load(f)
-            except json.JSONDecodeError:
-                return {
-                    "lead_team": [],
-                    "mechanical_team": [],
-                    "community_team": [],
-                    "programming_team": [],
-                    "media_team": [],
-                    "electronics_team": [],
-                    "mentor_team": []
-                }
-    return {
-        "lead_team": [],
-        "mechanical_team": [],
-        "community_team": [],
-        "programming_team": [],
-        "media_team": [],
-        "electronics_team": [],
-        "mentor_team": []
-    }
-
-class User(UserMixin):
-    def __init__(self, id, username, password, full_name, job_title, profile_picture=None, is_admin=False):
-        self.id = id
-        self.username = username
-        self.password = password
-        self.full_name = full_name
-        self.job_title = job_title
-        self.profile_picture = profile_picture
-        self.is_admin = is_admin
-
-@login_manager.user_loader
-def load_user(user_id):
-    users = load_users()
-    for user in users:
-        if user['id'] == int(user_id):
-            return User(user['id'], user['username'], user['password'], user['full_name'], user['job_title'], user.get('profile_picture'), user.get('is_admin', False))
-    return None
-
-def hash_password(password):
-    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-
-def check_password(hashed_password, user_password):
-    return bcrypt.checkpw(user_password.encode('utf-8'), hashed_password.encode('utf-8'))
-
-def generate_unique_id(existing_ids):
-    while True:
-        new_id = random.randint(100000, 999999)
-        if new_id not in existing_ids:
-            return new_id
-
-@app.route("/register", methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-        username = request.form['username'].lower()
-        password = request.form['password']
-        confirm_password = request.form['confirm_password']
-        full_name = request.form['full_name']
-        job_title = request.form['job_title']
-        users = load_users()
-
-        if any(user['username'] == username for user in users):
-            flash('Username already exists. Please choose another.', 'danger')
-            return redirect(url_for('register'))
-
-        if password != confirm_password:
-            flash('Passwords do not match. Please try again.', 'danger')
-            return redirect(url_for('register'))
-
-        if len(password) < 6:
-            flash('Password is too weak. Please choose a stronger password.', 'danger')
-            return redirect(url_for('register'))
-
-        hashed_password = hash_password(password)
-        new_user = {
-            'id': generate_unique_id([user['id'] for user in users]),
-            'username': username,
-            'password': hashed_password,
-            'full_name': full_name,
-            'job_title': job_title,
-            'is_admin': False
-        }
-        users.append(new_user)
-        save_users(users)
-        flash('Registration successful! Please log in.', 'success')
-        return redirect(url_for('login'))
-    return render_template('register.html')
-
-@app.route("/upload_profile_picture", methods=['POST'])
-@login_required
-def upload_profile_picture():
-    if 'profile_picture' not in request.files:
-        flash('No file part', 'danger')
-        return redirect(url_for('profile'))
-
-    file = request.files['profile_picture']
-    if file.filename == '':
-        flash('No selected file', 'danger')
-        return redirect(url_for('profile'))
-
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        users = load_users()
-        for user in users:
-            if user['id'] == current_user.id:
-                user['profile_picture'] = filename
-                save_users(users)
-                current_user.profile_picture = filename
-                break
-        flash('Profile picture uploaded successfully!', 'success')
-        return redirect(url_for('profile'))
-    else:
-        flash('Allowed file types are png, jpg, jpeg, gif', 'danger')
-        return redirect(url_for('profile'))
-
-@app.route("/login", methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form['username'].lower()
-        password = request.form['password']
-        users = load_users()
-        user = next((user for user in users if user['username'] == username), None)
-
-        if user and check_password(user['password'], password):
-            user_obj = User(user['id'], user['username'], user['password'], user['full_name'], user['job_title'], user.get('is_admin', False))
-            login_user(user_obj)
-            flash('Login successful!', 'success')
-            return redirect(url_for('home'))
-        else:
-            flash('Invalid username or password. Please try again.', 'danger')
-            return redirect(url_for('login'))
-    return render_template('login.html')
-
-@app.route("/Scout", methods=["POST", "GET"])
-@login_required
-def scout():
-    if request.method == 'POST':
-        form_data = request.form.to_dict()
-        json_file_path = DATA_FILE
-        existing_data = []
-
-        if os.path.exists(json_file_path) and os.path.getsize(json_file_path) > 0:
-            with open(json_file_path, "r") as file:
-                try:
-                    existing_data = json.load(file)
-                except json.JSONDecodeError:
-                    print("JSONDecodeError: The file is empty or not properly formatted")
-
-        existing_data.append(form_data)
-        try:
-            with open(json_file_path, "w") as file:
-                json.dump(existing_data, file, indent=4)
-        except Exception as e:
-            print(f"An error occurred while writing to the file: {e}")
-
-        flash('Thanks for submitting - Excalibur Scouting System Dev Team', 'success')
-        return redirect(url_for('scout'))
-    return render_template("Scout.html")
-
-
-@app.route("/")
-@login_required
-def test():
-    return render_template('HomeDashboard.html', full_name=current_user.full_name, job_title=current_user.job_title)
-
-@app.route("/profile")
-@login_required
-def profile():
-    return render_template('Profile.html', full_name=current_user.full_name, job_title=current_user.job_title)
-
-@app.route("/stats")
-@login_required
-def stats():
-    return render_template('Stats.html')
-
-@app.route("/scan-qr", methods=['POST'])
-@login_required
-def scan_qr():
-    try:
-        form_data = {
-            "m_num": request.form.get('m_num'),
-            "tm": request.form.get('tm'),
-            "all": request.form.get('all'),
-            "a_amp": request.form.get('a_amp'),
-            "a_spk": request.form.get('a_spk'),
-            "l_zone": request.form.get('l_zone'),
-            "m_zone": request.form.get('m_zone'),
-            "t_amp": request.form.get('t_amp'),
-            "t_spk": request.form.get('t_spk'),
-            "c_choice": request.form.get('c_choice'),
-            "c_time": request.form.get('c_time'),
-            "cmnts": request.form.get('cmnts')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://db.onlinewebfonts.com/c/a9ca19a608d18285fbd70cb40818bb79?family=Copperplate+W02+Bold" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mainpage.css') }}">
+</head>
+<body>
+<header>
+    <nav>
+        <div class="nav-left">
+            <a href="/home">Excalibur FRC 6738</a>
+        </div>
+        <button class="menu-toggle" aria-label="Open menu">&#9776;</button>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#schedule">Schedule</a></li>
+            <li><a href="#contacts">Contacts</a></li>
+            <li><a href="#" role="button">Donate</a></li>
+        </ul>
+        <div class="profile-section">
+            <img src="{{ url_for('static', filename='profiles/' + current_user.profile_picture) }}" alt="Profile Picture" class="profile-pic-large">
+            <div class="profile-dropdown">
+                <a href="{{ url_for('profile') }}">View Profile</a>
+                <a href="#settings">Settings</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </div>
+    </nav>
+</header>
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Excalibur!, {{ full_name }}</h1>
+            <p>Innovating the future with robotics and technology.</p>
+            <br>
+            <a href="{{ url_for('scout') }}" class="btn">Scout Now</a>
+        </div>
+    </section>
+    <main class="container">
+        <section id="dashboard">
+            <h2>Dashboard</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="https://excaliburfrc.github.io/resources/Logo.png" alt="Teams">
+                    <div class="card-content">
+                        <h3>Teams</h3>
+                        <p>View all team members and their roles.</p>
+                        <button class="view-teams-btn" onclick="viewTeams()">View Members</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="static/img/logo_resources.png" alt="Sponsors">
+                    <div class="card-content">
+                        <h3>Sponsors</h3>
+                        <p>Check out our sponsors for this season!</p>
+                        <button class="view-teams-btn" onclick="viewSponsors()">View Sponsors</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="static/img/logo_statistics.png" alt="Statistics">
+                    <div class="card-content">
+                        <h3>Statistics</h3>
+                        <p>View team performance statistics.</p>
+                        <button class="view-teams-btn" onclick="viewStats()">View Stats</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="static/img/logo_resources.png" alt="Resources">
+                    <div class="card-content">
+                        <h3>Resources</h3>
+                        <p>Access training and resources.</p>
+                        <button class="view-teams-btn" onclick="viewResources()">View Resources</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="team" class="side-content-image">
+            <div class="content">
+                <h2>Team Overview</h2>
+                <p>Our team consists of passionate individuals who are dedicated to innovation and excellence. Meet the members who make our success possible.</p>
+            </div>
+            <div class="image">
+                <img src="static/img/excalibur_team_photo.JPG" alt="Team photo">
+            </div>
+        </section>
+        <section id="projects" class="side-content-image">
+            <div class="content">
+                <h2>Projects</h2>
+                <p>We are constantly working on exciting projects that push the boundaries of technology and innovation. Explore our current and past projects.</p>
+            </div>
+            <div class="image">
+                <img src="static/img/prizes.JPG" alt="Project photo">
+            </div>
+        </section>
+        <section id="schedule" class="side-content-image">
+            <div class="content">
+                <h2>Schedule</h2>
+                <p>Stay up-to-date with our latest events and activities. Check out our schedule to see what's coming up next.</p>
+            </div>
+            <div class="image">
+                <img src="static/img/team2024.JPG" alt="Schedule photo">
+            </div>
+        </section>
+        <section id="contacts" class="side-content-image">
+            <div class="content">
+                <h2>Contact Information</h2>
+                <p>We'd love to hear from you! Whether you have a question or just want to say hello, feel free to get in touch with us.</p>
+            </div>
+            <div class="image">
+                <img src="static/img/con.JPG" alt="Contact photo">
+            </div>
+        </section>
+    </main>
+    <section aria-label="Subscribe example" class="subscribe-section">
+        <div class="container">
+            <article>
+                <h2>Subscribe to our newsletter</h2>
+                <p>Stay updated with our latest news</p>
+                <form id="subscribeForm">
+                    <input type="text" id="firstname" name="firstname" placeholder="First Name" aria-label="First Name" required>
+                    <input type="email" id="email" name="email" placeholder="Email Address" aria-label="Email Address" required>
+                    <button id="sub_btton" type="submit">Subscribe</button>
+                </form>
+            </article>
+        </div>
+    </section>
+    <footer>
+        <small><a href="#">Privacy Policy</a> • <a href="#">Terms of Service</a></small>
+        <p>&copy; 2024 Excalibur FRC 6738</p>
+    </footer>
+    <script>
+        function viewTeams() {
+            window.location.href = "{{ url_for('contacts') }}";
         }
 
-        # Validate the data
-        for key, value in form_data.items():
-            if value is None:
-                logging.error(f"Missing value for {key}")
-                return jsonify({"status": "failure", "error": f"Missing value for {key}"}), 400
+        function viewSponsors() {
+            window.location.href = "{{ url_for('sponsors') }}";
+        }
 
-        existing_data = load_data()
-        existing_data.append(form_data)
-        save_data(existing_data)
-        flash('QR code data successfully saved!', 'success')
-        return redirect(url_for('scan_qr_page'))
-    except Exception as e:
-        logging.error(f"An error occurred: {e}")
-        flash(f"Failed to save QR code data. Error: {str(e)}", 'danger')
-        return redirect(url_for('scan_qr_page'))
-@app.route("/scan-qr")
-@login_required
-def scan_qr_page():
-    return render_template('ScanQR.html')
+        function viewStats() {
+            alert('Viewing stats...');
+        }
 
-@app.route("/home")
-@login_required
-def home():
-    return render_template('HomeDashboard.html', full_name=current_user.full_name, job_title=current_user.job_title)
+        function viewResources() {
+            alert('Viewing resources...');
+        }
 
-@app.route('/Sponsors')
-@login_required
-def sponsors():
-    sponsor_images = [
-        "sponsors/modiin.png",
-        "sponsors/orian.png",
-        "sponsors/peerspot-removebg-preview (1).png",
-        "sponsors/sagol.png",
-        "sponsors/yeshiva.png",
-        "sponsors/yrm.png"
-    ]
-    return render_template('Sponsors.html', sponsor_images=sponsor_images)
-
-@app.route("/Projects")
-@login_required
-def projects():
-    return render_template('Projects.html')
-
-@app.route('/contacts')
-@login_required
-def contacts():
-    contacts = load_contacts()
-    return render_template('Contacts.html', contacts=contacts)
-
-@app.route("/logout")
-@login_required
-def logout():
-    logout_user()
-    flash('You have been logged out.', 'info')
-    return redirect(url_for('login'))
-
-if __name__ == '__main__':
-    if not os.path.exists(USER_DATA_FILE):
-        save_users([])
-    app.run(debug=True)
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
