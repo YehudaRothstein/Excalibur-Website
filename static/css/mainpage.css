@@ -1,241 +1,262 @@
 body {
     margin: 0;
-    padding: 0;
-    background-color: #012265;
-    color: #d4af37;
-    font-family: "Copperplate W02 Bold", "Copperplate Gothic Bold", "Copperplate Gothic", "Copperplate", "Arial Black", sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    justify-content: center;
-    overflow-x: hidden;
-}
-
-input {
-    margin: 0;
-    padding: 0;
-    color: #d4af37;
-    font-family: "Copperplate W02 Bold", "Copperplate Gothic Bold", "Copperplate Gothic", "Copperplate", "Arial Black", sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-header, nav, main {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    box-sizing: border-box; /* Added to ensure padding is included in total width */
-}
-
-header {
-    background-color: #012265;
-    color: #d4af37;
-    padding: 10px 0;
-}
-
-
-
-.hero {
-    background-color: #012265;
-    padding: 60px 20px;
+    font-family: 'Roboto', sans-serif;
+    color: white;
     text-align: center;
 }
 
-.hero-content h1 {
-    margin: 20px 0;
-    font-size: 2.5rem;
-}
-
-.hero-content p {
-    margin: 10px 0;
-    font-size: 1.2rem;
-}
-
-.btn {
-    background-color: #d4af37;
-    color: #012265;
-    padding: 10px 20px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 1.2rem;
-}
-
-.container {
-    background-color: #ffffff;
-    color: #012265;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    margin-top: 20px;
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    box-sizing: border-box;
-    justify-content: center;
+    height: 100%;
+    z-index: -2;
+}
+
+.background-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #012265, #d4af37);
+    opacity: 0.7;
+    z-index: -1;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    background: transparent;
+}
+
+.navbar-logo-link {
+    display: inline-block;
+}
+
+.navbar-logo {
+    height: 80px;
+}
+
+.navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-menu li {
+    display: inline;
+}
+
+.navbar-menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 100px;
+    padding: 0 40px;
+}
+
+.text-container {
+    text-align: left;
+}
+
+.text-container h1 {
+    font-size: 3em;
+}
+
+.text-container p {
+    font-size: 1.5em;
+    margin: 10px 0;
+}
+
+.team-photo {
+    border-radius: 15px;
+    width: 500px;
+    height: 300px;
+    object-fit: cover;
+}
+
+.buttons {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+.button-yellow {
+    background-color: #d4af37;
+    color: black;
+}
+
+.button-clear {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.concave-divider {
+    width: 100%;
+    height: 100px;
+    background: #012265;
+    border-radius: 100% 100% 0 0;
+    margin-top: 146px;
+}
+
+.image-section {
+    background-color: #012265;
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+}
+
+.square-image {
+    width: 250px;
+    height: 250px;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+.sponsors-section {
+    background-color: white;
+    color: black;
+    padding: 40px;
+    text-align: center;
+}
+
+.sponsors-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.sponsors-logos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px; /* Small gap for consistent spacing */
+    justify-items: center;
     align-items: center;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+.sponsor-logo {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.sponsor-logo-small {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.straight-divider {
+    width: 100%;
+    height: 2px;
+    background: #012265;
+}
+
+.videos-section {
+    background-color: #012265;
+    color: white;
+    padding: 40px;
+    text-align: center;
+}
+
+.videos-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 40px;
+}
+
+.videos-embed {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     gap: 20px;
 }
 
-.card {
-    background-color: #d4af37;
-    color: #012265;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+.videos-embed iframe {
+    width: 320px;
+    height: 180px;
+    border-radius: 10px;
 }
 
-.card img {
-    width: 80px;
-    height: 80px;
-    border-radius: 8px;
-    object-fit: cover;
-    margin-bottom: 15px;
-}
-
-.card-content {
-    flex: 1;
-}
-
-.view-teams-btn {
-    background-color: #012265;
-    border: none;
-    color: #d4af37;
-    font-family: "Copperplate W02 Bold", "Copperplate Gothic Bold", "Copperplate Gothic", "Copperplate", "Arial Black", sans-serif;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 1rem;
-    margin: 10px 0;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: background-color 0.3s;
-}
-
-.view-teams-btn:hover {
-    background-color: #011a4a;
-}
-
-.subscribe-section {
-    background-color: #012265;
-    color: #d4af37;
+footer {
+    background: linear-gradient(to bottom, #012265, #d4af37);
     padding: 40px 20px;
     text-align: center;
+    color: white;
 }
 
-.subscribe-section form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.subscribe-section form input,
-.subscribe-section form button {
-    padding: 10px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 8px;
+.footer-logo {
+    height: 80px;
 }
 
-.subscribe-section form button {
-    background-color: #d4af37;
-    color: #012265;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.footer-line {
+    width: 100px;
+    margin: 10px auto;
+    border: 1px solid white;
 }
 
-.subscribe-section form button:hover {
-    background-color: #b3992c;
-}
-
-
-
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
-    }
-
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
-    }
-
-    .nav-links.active {
-        display: flex;
-    }
-
-    .profile-section {
-        margin-top: 10px;
-    }
-
-    .hero-content h1 {
-        font-size: 2rem;
-    }
-
-    .hero-content p {
-        font-size: 1rem;
-    }
-
-    .container {
-        padding: 20px;
-    }
-
-
-}
-
-
-
-.side-content-image {
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background-color: #d4af37;
-    color: #012265;
+.footer-nav {
     margin: 20px 0;
 }
 
-.side-content-image .content {
-    flex: 1;
-    padding: 20px;
+.footer-nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
 }
 
-.side-content-image .image {
-    flex: 1;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    max-height: 200px;
-    max-width: 300px;
+.footer-social {
+    margin: 20px 0;
 }
 
-.side-content-image .image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+.footer-social a {
+    margin: 0 10px;
 }
 
-.sub_btton {
-    background-color: #d4af37;
-    color: #012265;
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
+.footer-social img {
+    width: 24px;
+    height: 24px;
+}
+
+footer p {
+    margin-top: 20px;
+    font-size: 14px;
 }
