@@ -1,0 +1,241 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #012265;
+    color: #d4af37;
+    font-family: "Copperplate W02 Bold", "Copperplate Gothic Bold", "Copperplate Gothic", "Copperplate", "Arial Black", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+input {
+    margin: 0;
+    padding: 0;
+    color: #d4af37;
+    font-family: "Copperplate W02 Bold", "Copperplate Gothic Bold", "Copperplate Gothic", "Copperplate", "Arial Black", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+header, nav, main {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box; /* Added to ensure padding is included in total width */
+}
+
+header {
+    background-color: #012265;
+    color: #d4af37;
+    padding: 10px 0;
+}
+
+
+
+.hero {
+    background-color: #012265;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.hero-content h1 {
+    margin: 20px 0;
+    font-size: 2.5rem;
+}
+
+.hero-content p {
+    margin: 10px 0;
+    font-size: 1.2rem;
+}
+
+.btn {
+    background-color: #d4af37;
+    color: #012265;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.container {
+    background-color: #ffffff;
+    color: #012265;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background-color: #d4af37;
+    color: #012265;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.card-content {
+    flex: 1;
+}
+
+.view-teams-btn {
+    background-color: #012265;
+    border: none;
+    color: #d4af37;
+    font-family: "Copperplate W02 Bold", "Copperplate Gothic Bold", "Copperplate Gothic", "Copperplate", "Arial Black", sans-serif;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.view-teams-btn:hover {
+    background-color: #011a4a;
+}
+
+.subscribe-section {
+    background-color: #012265;
+    color: #d4af37;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.subscribe-section form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.subscribe-section form input,
+.subscribe-section form button {
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 8px;
+}
+
+.subscribe-section form button {
+    background-color: #d4af37;
+    color: #012265;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.subscribe-section form button:hover {
+    background-color: #b3992c;
+}
+
+
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .profile-section {
+        margin-top: 10px;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+
+}
+
+
+
+.side-content-image {
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #d4af37;
+    color: #012265;
+    margin: 20px 0;
+}
+
+.side-content-image .content {
+    flex: 1;
+    padding: 20px;
+}
+
+.side-content-image .image {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    max-height: 200px;
+    max-width: 300px;
+}
+
+.side-content-image .image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.sub_btton {
+    background-color: #d4af37;
+    color: #012265;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
