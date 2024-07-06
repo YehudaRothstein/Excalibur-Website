@@ -1,0 +1,139 @@
+
+header {
+    background-color: #012265;
+    color: #d4af37;
+    padding: 10px 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    margin-right: 30px; /* Add this line to increase the spacing */
+}
+
+.nav-left a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-right: 30px; /* Adjust the spacing here as well */
+}
+
+.menu-toggle {
+    background: none;
+    border: none;
+    color: #d4af37;
+    font-size: 2rem;
+    cursor: pointer;
+    display: none;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links li a {
+    color: #d4af37;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.nav-links li a:hover {
+    background-color: #d4af37;
+    color: #012265;
+}
+
+.profile-section {
+    display: flex;
+    align-items: center;
+}
+
+.profile-pic-large {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 10px;
+}
+
+.profile-dropdown {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #ffffff;
+    color: #012265;
+    border: 1px solid #d4af37;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-dropdown a {
+    padding: 10px 20px;
+    color: #012265;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    text-align: left;
+    border-bottom: 1px solid #d4af37;
+}
+
+.profile-dropdown a:last-child {
+    border-bottom: none;
+}
+
+.profile-dropdown a:hover {
+    background-color: #d4af37;
+    color: #012265;
+}
+
+.profile-section:hover .profile-dropdown {
+    display: flex;
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .profile-section {
+        margin-top: 10px;
+    }
+}
+
+@media (min-width: 769px) {
+    .nav-links {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .profile-section {
+        margin-left: auto;
+    }
+}

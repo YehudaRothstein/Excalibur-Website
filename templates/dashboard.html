@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 3 Community Hours</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="{{ url_for('static', filename='icons/team_icon.png') }}" type="image/png">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    <div class="background">
+        <img src="{{ url_for('static', filename='icons/team.png') }}" alt="Excalibur FRC 6738" class="background-logo">
+    </div>
+    <nav class="navbar">
+        <a href="/" class="navbar-logo-link">
+            <img src="{{ url_for('static', filename='icons/team_icon.png') }}" alt="Team Logo" class="navbar-logo">
+        </a>
+        <ul class="navbar-menu">
+            <li><a href="#outreach">Outreach</a></li>
+            <li><a href="{{ url_for('resources') }}">Resources</a></li>
+        </ul>
+    </nav>
+    <div class="content">
+        <div class="text-container">
+            <h1>Top 3 Community Points</h1>
+            <p>Here are the top 3 members with the most community Points this week.</p>
+            <div class="podium-container">
+                <div class="podium">
+                    {% for name, hours in top_three %}
+                    <div class="podium-step {{ loop.index }}">
+                        <h2>{{ loop.index }}</h2>
+                        <p>{{ name }}</p>
+                        <p>{{ hours }} Points</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

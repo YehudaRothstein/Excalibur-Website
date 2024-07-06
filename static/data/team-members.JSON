@@ -1,0 +1,28 @@
+{
+    "captains": [
+        { "name": "Asaf Kloot", "role": "Captain", "photo": "static/img/temp-photo.jpg" },
+        { "name": "Ariel Malaka", "role": "Co - Captain", "photo": "static/img/temp-photo.jpg" }
+    ],
+    "software": [
+        { "name": "Yoav Choen", "role": "Software Lead", "photo": "static/img/temp-photo.jpg" },
+        { "name": "Yehuda Rothstein", "role": "Data and Logs Lead", "photo": "static/img/temp-photo.jpg" }
+    ],
+    "mechanical": [
+        { "name": "Uri Feist", "role": "Mechanical Team Member", "photo": "static/img/temp-photo.jpg" }
+    ],
+    "electrical": [
+        { "name": "Eylon Ben - Shushan", "role": "Electrical Team Lead", "photo": "static/img/temp-photo.jpg" },
+        { "name": "Ori Peer", "role": "Electrical Team Member", "photo": "static/img/temp-photo.jpg" }
+    ],
+    "media": [
+        { "name": "Amichai Sedly", "role": "Media Team Lead", "photo": "static/img/temp-photo.jpg" },
+        { "name": "Eliyah Kalfon", "role": "Media Team Member", "photo": "static/img/temp-photo.jpg" }
+    ],
+    "community": [
+        { "name": "Itamar Dudai", "role": "Community Team Lead", "photo": "static/img/temp-photo.jpg" },
+        { "name": "Ori Korngut", "role": "Community Team Member", "photo": "static/img/temp-photo.jpg" }
+    ],
+    "mentors": [
+        { "name": "Naveh Peled", "role": "Head Mentor", "photo": "static/img/temp-photo.jpg" }
+    ]
+}
