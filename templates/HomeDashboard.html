@@ -8,16 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
         {% block content %}
-    <link rel="stylesheet" href="static/css/mainpage.css">
+    <link rel="stylesheet" href="../static/css/mainpage.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="static/icons/team_icon.png" type="image/png">
-    <script src="static/js/navbar.js" defer></script>
-    <script src="static/js/scroll.js" defer></script>
+    <link rel="icon" href="../static/icons/team_icon.png" type="image/png">
+    <script src="../static/js/navbar.js" defer></script>
+    <script src="../static/js/scroll.js" defer></script>
 </head>
 <body>
     <div class="background-overlay"></div>
     <div class="background">
-        <img src="static/icons/team.png" alt="Excalibur FRC 6738" class="background-logo">
+        <img src="../static/icons/team.png" alt="Excalibur FRC 6738" class="background-logo">
     </div>
     <div class="content">
         <div class="text-container">
@@ -28,23 +28,23 @@
                 <a href="{{ url_for('dashboard') }}" class="button button-clear">Leaderboard</a>
             </div>
         </div>
-        <img src="static/KeyImages/dis4team (1).jpg" alt="Team Photo" class="team-photo">
+        <img src="../static/KeyImages/dis4team (1).jpg" alt="Team Photo" class="team-photo">
     </div>
     <div class="concave-divider"></div>
     <div class="image-section">
-        <img src="static/KeyImages/photo1 (1).jpg" alt="Image 1" class="square-image">
-        <img src="static/img/prizes.JPG" alt="Image 2" class="square-image">
-        <img src="static/KeyImages/photo2.jpeg" alt="Image 3" class="square-image">
+        <img src="../static/KeyImages/photo1 (1).jpg" alt="Image 1" class="square-image">
+        <img src="../static/img/prizes.jpeg" alt="Image 2" class="square-image">
+        <img src="../static/KeyImages/photo2.jpeg" alt="Image 3" class="square-image">
     </div>
     <div class="sponsors-section">
         <h2>Our Sponsors</h2>
         <div class="sponsors-logos">
-            <img src="static/sponsors/modiin.png" alt="Modiin" class="sponsor-logo">
-            <img src="static/sponsors/orian.png" alt="Orian" class="sponsor-logo-small">
-            <img  width="320" height="180" src="static/sponsors/peerspot-removebg-preview (1).png" alt="Peerspot" class="sponsor-logo-small">
-            <img src="static/sponsors/sagol.png" alt="Sagol" class="sponsor-logo-small">
-            <img src="static/sponsors/yeshiva.png" alt="Yeshiva" class="sponsor-logo">
-            <img src="static/sponsors/yrm.png" alt="YRM" class="sponsor-logo">
+            <img src="../static/sponsors/modiin.png" alt="Modiin" class="sponsor-logo">
+            <img src="../static/sponsors/orian.png" alt="Orian" class="sponsor-logo-small">
+            <img width="225" height="225" src="../static/sponsors/peerspot.png" alt="Peerspot" class="sponsor-logo-small">
+            <img src="../static/sponsors/sagol.png" alt="Sagol" class="sponsor-logo-small">
+            <img src="../static/sponsors/yeshiva.png" alt="Yeshiva" class="sponsor-logo">
+            <img src="../static/sponsors/yrm.png" alt="YRM" class="sponsor-logo">
         </div>
     </div>
     <div class="straight-divider"></div>
