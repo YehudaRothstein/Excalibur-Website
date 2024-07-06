@@ -6,7 +6,6 @@ import math
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '1234'
 
-
 API_KEY = 'AIzaSyAumZOT71GxTu9TcmzvcSyZuvXWyruSQns'
 SPREADSHEET_ID = '13eRjZCFyYWVbKQdgj5Yj3uMatjf23at0Fdkd5B-VHXQ'
 RANGE_NAME = 'WeeklyTop!A2:B'
