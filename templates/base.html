@@ -5,51 +5,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="static/css/base.css">
+    <link rel="stylesheet" href="../static/css/base.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="static/icons/team_icon.png" type="image/png">
-    <script src="static/js/navbar.js" defer></script>
-    <script src="static/js/scroll.js" defer></script>
+    <link rel="icon" href="../static/icons/team_icon.png" type="image/png">
+    <script src="../static/js/navbar.js" defer></script>
+    <script src="../static/js/scroll.js" defer></script>
     {% block extra_head %}{% endblock %}
 </head>
 <body>
        <nav class="navbar">
         <a href="/" class="navbar-logo-link">
-            <img src="static/icons/team_icon.png" alt="Team Logo" class="navbar-logo">
+            <img src="../static/icons/team_icon.png" alt="Team Logo" class="navbar-logo">
         </a>
         <ul class="navbar-menu">
-            <li><a href="#Outreach">Outreach</a></li>
+            <li><a>Outreach</a></li>
             <li><a href="{{ url_for('resources') }}">Resources</a></li>
         </ul>
     </nav>
-    </header>
-    <main>
+       <main>
         {% block content %}{% endblock %}
     </main>
   <footer>
         <div class="footer-content">
-            <img src="static/icons/team_icon.png" alt="Excalibur FRC Logo" class="footer-logo">
+            <img src="../static/icons/team_icon.png" alt="Excalibur FRC Logo" class="footer-logo">
             <hr class="footer-line">
             <div class="footer-nav">
-                <a href="#outreach">Outreach</a>
+                <a>Outreach</a>
                 <a href="{{ url_for('resources') }}">Resources</a>
                 <a href="{{ url_for('terms') }}">Terms and Conditions</a>
             </div>
             <div class="footer-social">
                 <a href="https://github.com/ExcaliburFRC" target="_blank" style="color: #d4af37; text-decoration: none;">
-                    <img src="static/icons/github.webp" alt="GitHub" style="width: 24px; height: 24px;">
+                    <img src="../static/icons/github.png" alt="GitHub" style="width: 24px; height: 24px;">
                 </a>
                 <a href="https://www.youtube.com/@ExcaliburFRC" target="_blank" style="color: #d4af37; text-decoration: none;">
-                    <img src="static/icons/youtube (1).png" alt="YouTube" style="width: 24px; height: 24px;">
+                    <img src="../static/icons/youtube (1).png" alt="YouTube" style="width: 24px; height: 24px;">
                 </a>
                 <a href="https://www.facebook.com/excaliburfrc/" target="_blank" style="color: #d4af37; text-decoration: none;">
-                    <img src="static/icons/facebook (1).png" alt="Facebook" style="width: 24px; height: 24px;">
+                    <img src="../static/icons/facebook (1).png" alt="Facebook" style="width: 24px; height: 24px;">
                 </a>
                 <a href="https://www.instagram.com/excalibur_6738/" target="_blank" style="color: #d4af37; text-decoration: none;">
-                    <img src="static/icons/instagram.png" alt="Instagram" style="width: 24px; height: 24px;">
+                    <img src="../static/icons/instagram.png" alt="Instagram" style="width: 24px; height: 24px;">
                 </a>
                 <a href="mailto:ExcaliburFRC@gmail.com" style="color: #d4af37; text-decoration: none;">
-                    <img src="static/icons/social.png" alt="Gmail" style="width: 24px; height: 24px;">
+                    <img src="../static/icons/social.png" alt="Gmail" style="width: 24px; height: 24px;">
                 </a>
             </div>
             <p>&copy; 2024 Excalibur FRC. All rights reserved.</p>
